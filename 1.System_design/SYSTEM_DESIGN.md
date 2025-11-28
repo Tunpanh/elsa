@@ -178,8 +178,8 @@ In this challenge, answer correctness can be **passed in the request** (`correct
 - **Logging**
   - Structured logs for joins, answers, broadcasts, errors.
 - **Metrics**
-  - # of active SSE connections.
-  - # of participants per quiz.
+  - Number of active SSE connections.
+  - Number of participants per quiz.
   - Answer throughput (submissions/sec).
   - Leaderboard update latency.
 - **Tracing (future)**
