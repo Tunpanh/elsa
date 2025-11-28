@@ -294,59 +294,80 @@ data: {"quizId":"demo","updatedAt":"2025-11-28T00:00:00.000Z","entries":[...]}
 
 ## Manual Test / Demo Flow (CLI)
 
-Here is a concise demo sequence using curl (Unix-style quoting):
+The following steps are tailored for **Windows PowerShell**.
 
 1. **Start the server**
 
-   ```bash
-   node server.js
+   ```powershell
+   node .\server.js
    ```
 
 2. **Open SSE stream (another terminal)**
 
-   ```bash
-   curl -N "http://localhost:3000/events?quizId=demo"
+   Use `curl.exe` (the real curl binary, not the PowerShell alias):
+
+   ```powershell
+   curl.exe -N "http://localhost:3000/events?quizId=demo"
    ```
+
+   Alternatively, you can open this URL in a browser:
+   `http://localhost:3000/events?quizId=demo`
 
 3. **Join as Ana**
 
-   ```bash
-   curl -X POST "http://localhost:3000/join"      -H "Content-Type: application/json"      -d '{"quizId":"demo","userId":"u1","name":"Ana"}'
+   ```powershell
+   Invoke-RestMethod -Uri "http://localhost:3000/join" `
+     -Method POST `
+     -ContentType "application/json" `
+     -Body '{"quizId":"demo","userId":"u1","name":"Ana"}'
    ```
 
 4. **Join as Ben**
 
-   ```bash
-   curl -X POST "http://localhost:3000/join"      -H "Content-Type: application/json"      -d '{"quizId":"demo","userId":"u2","name":"Ben"}'
+   ```powershell
+   Invoke-RestMethod -Uri "http://localhost:3000/join" `
+     -Method POST `
+     -ContentType "application/json" `
+     -Body '{"quizId":"demo","userId":"u2","name":"Ben"}'
    ```
 
 5. **Submit answers**
 
    Ana correct:
 
-   ```bash
-   curl -X POST "http://localhost:3000/answer"      -H "Content-Type: application/json"      -d '{"quizId":"demo","userId":"u1","correct":true}'
+   ```powershell
+   Invoke-RestMethod -Uri "http://localhost:3000/answer" `
+     -Method POST `
+     -ContentType "application/json" `
+     -Body '{"quizId":"demo","userId":"u1","correct":true}'
    ```
 
    Ben incorrect:
 
-   ```bash
-   curl -X POST "http://localhost:3000/answer"      -H "Content-Type: application/json"      -d '{"quizId":"demo","userId":"u2","correct":false}'
+   ```powershell
+   Invoke-RestMethod -Uri "http://localhost:3000/answer" `
+     -Method POST `
+     -ContentType "application/json" `
+     -Body '{"quizId":"demo","userId":"u2","correct":false}'
    ```
 
    Ana correct again:
 
-   ```bash
-   curl -X POST "http://localhost:3000/answer"      -H "Content-Type: application/json"      -d '{"quizId":"demo","userId":"u1","correct":true}'
+   ```powershell
+   Invoke-RestMethod -Uri "http://localhost:3000/answer" `
+     -Method POST `
+     -ContentType "application/json" `
+     -Body '{"quizId":"demo","userId":"u1","correct":true}'
    ```
 
 6. **Check snapshot**
 
-   ```bash
-   curl "http://localhost:3000/leaderboard?quizId=demo"
+   ```powershell
+   Invoke-RestMethod -Uri "http://localhost:3000/leaderboard?quizId=demo" `
+     -Method GET
    ```
 
-Throughout this sequence, the SSE terminal will display `leaderboard` events whenever scores change, providing a good live demo for the video submission.
+Throughout this sequence, the SSE terminal (or browser tab) will display `leaderboard` events whenever scores change, providing a clear live demo for the video submission.
 
 ---
 
